@@ -5,7 +5,7 @@ export default function Home() {
   return (
         <View style={style.container}>
     
-      <Text className="text-lg font-semibold">🏠 Ana Sayfa</Text>
+      <Text style={style.container}>🏠 Ana Sayfa</Text>
     </View>
   );
 }

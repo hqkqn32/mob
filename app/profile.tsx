@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 
 export default function Profile() {
+  const message='javas'
   return (
     <View style={style.container}>
-      <Text className="text-lg font-semibold">👤 Profil Sayfası</Text>
+      <Text className="text-lg font-semibold">👤 Profil Sayfası {message}</Text>
     </View>
   );
 }

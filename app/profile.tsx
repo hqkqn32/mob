@@ -1,20 +1,23 @@
-import { StyleSheet, Text, View } from "react-native";
+import { getStyleMenu } from "@/styles/cs"; // ✅ doğru import
+import { useState } from "react";
+import { Switch, Text, View } from "react-native";
 
 export default function Profile() {
-  const message='javas'
+  // 🎨 Temayı yönetmek için state
+  const [darkMode, setDarkMode] = useState(false);
+
+  // 🎨 cs.tsx’ten stil setini al
+  const stylemenu = getStyleMenu(darkMode);
+
   return (
-    <View style={style.container}>
-      <Text className="text-lg font-semibold">👤 Profil Sayfası {message}</Text>
+    <View style={stylemenu.container}>
+      <Text style={stylemenu.title}>profil Sayfası</Text>
+      <Text style={stylemenu.content}>
+        Bu sayfa profil bilgilerini gösterecek.
+      </Text>
+
+      {/* Tema değiştirici */}
+      <Switch value={darkMode} onValueChange={setDarkMode} />
     </View>
   );
 }
-
- export const style=StyleSheet.create({container:{
-    flex:1,
-    backgroundColor:'#3a8827ff',
-    alignItems:'center',
-    justifyContent:'center'
-
-
-
-}})

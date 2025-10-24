@@ -1,73 +1,62 @@
-import { Ionicons } from "@expo/vector-icons"; // ikonlar için
-import { useNavigation } from "@react-navigation/native";
+// app/_layout.tsx
+import { Feather } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { Button, Text, View } from "react-native";
+import { View } from "react-native";
 
-function HomeScreen() {
-  const navigation = useNavigation();
-
-  return (
-    <View>
-      <Text>🏠 Ana Sayfa</Text>
-      <Button
-        title="Profil Sayfasına Git"
-        onPress={() => navigation.navigate("Profile")}
-      />
-    </View>
-  );
-}
-
-function ProfileScreen() {
-  return (
-    <View>
-      <Text>👤 Profil Sayfası</Text>
-    </View>
-  );
-}
-
-export default function RootLayout() {
+export default function Layout() {
   return (
     <Tabs
-      screenOptions={{
-      sceneStyle: { paddingTop: 0 }, // 👈 tüm tab sayfalarına 60px üst boşluk ekler
-      tabBarStyle: {
-      position: "absolute",
-      bottom: 10,
-      left: 10,
-      right: 10,
-      borderRadius: 20,
-      backgroundColor: "#04061bff",
-      height: 60,
-    },
-  }}
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarShowLabel: false, // sadece ikonlar
+        tabBarStyle: {
+          position: "absolute",
+          bottom: 10,
+          left: 20,
+          right: 20,
+          backgroundColor: "hsla(240, 26%, 20%, 1.00)",
+          borderRadius: 30,
+          height:70 ,
+          shadowColor: "#000",
+          shadowOpacity: 0.1,
+          shadowOffset: { width: 0, height: 10 },
+          shadowRadius: 10,
+          elevation: 10,
+        },
+
+        // 🔽 İŞTE BURAYA EKLİYORUZ 🔽
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName: keyof typeof Feather.glyphMap = "circle";
+
+          if (route.name === "index") iconName = "home";
+          else if (route.name === "profile") iconName = "user";
+          else if (route.name === "settings") iconName = "settings";
+
+          // aktif sekmede mavi renk, pasifte gri
+          color = focused ? "#007AFF" : "#808080";
+
+          return (
+            <View style={{ alignItems: "center" }}>
+              <Feather name={iconName} size={26} color={color} />
+              {focused && (
+                <View
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: 3,
+                    backgroundColor: "#007AFF",
+                    marginTop: 4,
+                  }}
+                />
+              )}
+            </View>
+          );
+        },
+      })}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-outline" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Settings",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="settings-outline" color={color} size={size} />
-          ),
-        }}
-      />
+      <Tabs.Screen name="index" options={{ title: "Ana Sayfa" }} />
+      <Tabs.Screen name="profile" options={{ title: "Profil" }} />
+      <Tabs.Screen name="settings" options={{ title: "Ayarlar" }} />
     </Tabs>
   );
 }

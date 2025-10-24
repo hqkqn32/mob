@@ -1,11 +1,11 @@
 import { Text, View } from "react-native";
-import { style } from "./profile";
 
 export default function Home() {
+
   return (
-        <View style={style.container}>
-    
-      <Text style={style.container}>🏠 Ana Sayfa</Text>
+    <View style={{ flex: 1, justifyContent: "space-around", alignItems: "center" }}>
+      <Text>Ana Sayfa</Text>
+   
     </View>
   );
 }

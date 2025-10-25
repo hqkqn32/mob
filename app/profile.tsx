@@ -1,23 +1,18 @@
-import { getStyleMenu } from "@/styles/cs"; // ✅ doğru import
+import { getStyleMenu } from "@/styles/cs";
 import { useState } from "react";
-import { Switch, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Profile() {
-  // 🎨 Temayı yönetmek için state
   const [darkMode, setDarkMode] = useState(false);
-
-  // 🎨 cs.tsx’ten stil setini al
   const stylemenu = getStyleMenu(darkMode);
 
   return (
-    <View style={stylemenu.container}>
-      <Text style={stylemenu.title}>profil Sayfası</Text>
-      <Text style={stylemenu.content}>
-        Bu sayfa profil bilgilerini gösterecek.
-      </Text>
-
-      {/* Tema değiştirici */}
-      <Switch value={darkMode} onValueChange={setDarkMode} />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={stylemenu.container}>
+        <Text style={stylemenu.title}>Profil Sayfası</Text>
+        <Text style={stylemenu.content}>Bu sayfa profil bilgilerini gösterecek.</Text>
+      </View>
+    </SafeAreaView>
   );
 }
